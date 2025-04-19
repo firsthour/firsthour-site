@@ -4,8 +4,6 @@
 	<artifactId>firsthour-site</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
-	<!-- C:\Development\java\firsthour\src\main\resources\site>jbake -b -s -->
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.jbake</groupId>
@@ -53,6 +51,12 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.18.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.38</version>
 		</dependency>
 	</dependencies>
 </project>

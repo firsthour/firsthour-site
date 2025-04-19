@@ -5,8 +5,8 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
-	<#-- was posts as post -->
-	<#list firsthourreviews as post>
+	<#list firsthours as post>
+	<#-- <#list posts as post> -->
   		<#if (post.status == "published")>
   			<a href="${post.uri}"><h1>${post.title}</h1></a>
   			<p>${post.date?string("dd MMMM yyyy")}</p>
