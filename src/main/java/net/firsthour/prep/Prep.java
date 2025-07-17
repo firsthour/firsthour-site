@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.firsthour.model.Post;
 
@@ -27,27 +29,51 @@ public class Prep {
 		List<Post> posts = new ArrayList<>();
 		
 		try(Statement statement = createStatement()) {
+			//find nodes with multiple authors and build a map
 			ResultSet results = statement.executeQuery(
 			"""
-				select
-					n.nid as 'nid',
-					n.type as 'type',
-					n.title as 'title',
-					n.created as 'date',
-					u.name as 'author',
-					u.uid as 'uid',
-					url.dst as 'url',
-					teaser as 'teaser',
-					body as 'body'
-				from node n
-				left outer join users u on n.uid = u.uid
-				left outer join node_revisions nr on n.nid = nr.nid
-				left outer join url_alias url on url.src = CONCAT('node/', n.nid)
-				order by n.created asc
+				SELECT
+					n.nid AS 'nid',
+					GROUP_CONCAT(
+						DISTINCT u.name
+						ORDER BY u.name
+						SEPARATOR ', ') AS 'authors'
+				FROM content_field_authors cfa
+				INNER JOIN node n ON cfa.nid = n.nid
+				INNER JOIN users u ON cfa.field_authors_uid = u.uid
+				GROUP BY n.nid
+			""");
+			
+			Map<Integer, String> authors = new HashMap<>();
+			while(results.next()) {
+				int nid = results.getInt("nid");
+				String authorNames = results.getString("authors");
+				authors.put(nid, authorNames);
+			}
+			
+			results = statement.executeQuery(
+			"""
+				SELECT
+					n.nid AS 'nid',
+					nt.name as 'type',
+					n.title AS 'title',
+					n.created AS 'date',
+					u.name AS 'author',
+					u.uid AS 'uid',
+					url.dst AS 'url',
+					teaser AS 'teaser',
+					body AS 'body'
+				FROM node n
+				LEFT OUTER JOIN users u ON n.uid = u.uid
+				LEFT OUTER JOIN node_revisions nr ON n.nid = nr.nid
+				LEFT OUTER JOIN url_alias url ON url.src = CONCAT('node/', n.nid)
+				left outer join node_type nt on n.type = nt.type
+				WHERE n.status = 1
+				ORDER BY n.created asc
 			""");
 			
 			while(results.next()) {
-				Post post = Post.from(results);
+				Post post = Post.from(results, authors);
 				posts.add(post);
 			}
 		}
@@ -78,5 +104,23 @@ public class Prep {
 		}
 		
 		Files.createDirectories(content);
+		
+		//copy contents of the directory manual into content
+		Path manual = Paths.get("src/main/resources/site/manual").toAbsolutePath();
+		if(Files.exists(manual)) {
+			try(var s1 = Files.newDirectoryStream(manual)) {
+				for(Path sub : s1) {
+					if(Files.isDirectory(sub)) {
+						try(var s2 = Files.newDirectoryStream(sub)) {
+							for(Path entry : s2) {
+								Files.copy(entry, content.resolve(entry.getFileName()));
+							}
+						}
+					} else {
+						Files.copy(sub, content.resolve(sub.getFileName()));
+					}
+				}
+			}
+		}
 	}
 }

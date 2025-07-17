@@ -1,21 +1,22 @@
 <#include "header.ftl">
-	
-	<#include "menu.ftl">
 
-	<div class="page-header">
-		<h1>Blog</h1>
-	</div>
-	<#list firsthours as post>
-	<#-- <#list posts as post> -->
-  		<#if (post.status == "published")>
-  			<a href="${post.uri}"><h1>${post.title}</h1></a>
-  			<p>${post.date?string("dd MMMM yyyy")}</p>
-  			<p>${post.teaser}</p>
-  		</#if>
-  	</#list>
-	
+<#include "menu.ftl">
+
+<#list published_posts?filter(post -> post.status == "published") as post>
+	<a href="/${post.uri?remove_ending("/index.html")}">
+		<h2 class="postTitle">${post.title}</h2>
+	</a>
+	<h3 class="siteType">${post.siteType}</h3>
+	<p>by ${post.author} — ${post.date?string("MMMM dd, yyyy")}</p>
+	<p>${post.teaser}</p>
+	<a href="/${post.uri?remove_ending("/index.html")}">Read more</a>
 	<hr />
-	
-	<p>Older posts are available in the <a href="${content.rootpath}${config.archive_file}">archive</a>.</p>
+</#list>
+
+<#if config.index_paginate>
+	<span><#if (previousFileName??)><a href="/${previousFileName}">Newer</a></#if></span>
+	<span>${currentPageNumber} of ${numberOfPages}</span>
+	<#if (nextFileName??)><a href="/${nextFileName}">Older</a></#if>
+</#if>
 
 <#include "footer.ftl">
