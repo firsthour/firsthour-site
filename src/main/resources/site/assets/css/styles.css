@@ -128,3 +128,7 @@ a:focus {
 a:has(> img.summaryimage) {
 	float: right;
 }
+
+.listPost {
+	display: inline-block;
+}
