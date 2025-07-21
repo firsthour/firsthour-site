@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 import net.firsthour.model.Post;
 
@@ -20,16 +21,10 @@ public class PostWriter {
 	
 	public void write() throws IOException {
 		Path html = createFile();
-		System.out.println(html);
-		
 		writeText(html);
-		
-		System.out.println();
 	}
 	
 	private Path createFile() throws IOException {
-		System.out.println(post.getUrl());
-		
 		Path content = Paths.get("src/main/resources/site/content");
 		
 		String[] urlParts = post.getUrl().split("/");
@@ -74,7 +69,7 @@ public class PostWriter {
 			.replace("TITLE", post.getTitle())
 			.replace("DATE", post.getDate().format(DTF))
 			.replace("TEASER", post.getTeaser())
-			.replace("AUTHOR", post.getAuthor())
+			.replace("AUTHOR", post.getAuthors().stream().collect(Collectors.joining(",")))
 			.replace("SITETYPE", post.getSiteType());
 	}
 }

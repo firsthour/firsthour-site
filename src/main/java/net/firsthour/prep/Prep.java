@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,17 +38,18 @@ public class Prep {
 					GROUP_CONCAT(
 						DISTINCT u.name
 						ORDER BY u.name
-						SEPARATOR ', ') AS 'authors'
+						SEPARATOR ',') AS 'authors'
 				FROM content_field_authors cfa
 				INNER JOIN node n ON cfa.nid = n.nid
 				INNER JOIN users u ON cfa.field_authors_uid = u.uid
 				GROUP BY n.nid
 			""");
 			
-			Map<Integer, String> authors = new HashMap<>();
+			Map<Integer, List<String>> authors = new HashMap<>();
 			while(results.next()) {
 				int nid = results.getInt("nid");
-				String authorNames = results.getString("authors");
+				List<String> authorNames =
+					Arrays.asList(results.getString("authors").split(","));
 				authors.put(nid, authorNames);
 			}
 			
@@ -111,9 +113,14 @@ public class Prep {
 			try(var s1 = Files.newDirectoryStream(manual)) {
 				for(Path sub : s1) {
 					if(Files.isDirectory(sub)) {
+						Files.createDirectories(content.resolve(sub.getFileName()));
 						try(var s2 = Files.newDirectoryStream(sub)) {
-							for(Path entry : s2) {
-								Files.copy(entry, content.resolve(entry.getFileName()));
+							for(Path sub2 : s2) {
+								Files.copy(
+									sub2,
+									content
+										.resolve(sub.getFileName())
+										.resolve(sub2.getFileName()));
 							}
 						}
 					} else {

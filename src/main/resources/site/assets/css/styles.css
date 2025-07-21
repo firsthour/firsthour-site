@@ -116,7 +116,7 @@ a:focus {
 	border-bottom: none;
 }
 
-.summaryimage, .teaser_image {
+.summaryimage, .teaser_image, .cover_image_no_infobox {
 	padding: 6px;
 	margin: 0px 6px;
 	border-top: 1px solid #ddd;
