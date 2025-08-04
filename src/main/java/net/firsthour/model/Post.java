@@ -54,6 +54,9 @@ public class Post {
 	private static String cleanBody(String body) {
 		body = body
 			.replace(
+				"\r\n\r\n<span class=\"minute-counter\">",
+				"<br><br><span class=\"minute-counter\">")
+			.replace(
 				"<a class=\"mta\">MtA<span>Minutes to Action</span>",
 				"Minutes to Action")
 			.replace(
@@ -61,6 +64,9 @@ public class Post {
 				"Minutes to Action")
 			.replace(
 				"<th class=\"centerinfobox\" colspan=\"2\"><a class=\"amazonlink\".*?</th>",
+				"")
+			.replaceAll(
+				"<th class=\\\"centerinfobox\\\" colspan=\\\"2\\\"><a class=\\\"amazonlink\\\" target=\\\"_blank\\\" href=\\\"http:\\/\\/www\\.amazon\\.com\\/dp\\/[A-Z0-9]*\\?tag=thfiho0a-20\\\">Buy from Amazon<\\/a><\\/th>",
 				"")
 			.replace(
 				"<img src=\"/sites/default/files/images/clocks/infobox-score-.*?style=\"vertical-align: bottom;\">",
@@ -78,7 +84,7 @@ public class Post {
 				"<tr class=\"even\"><td colspan=\"2\" style=\"padding: 3px 1px 3px 1px\">",
 				"<tr class=\"even\"><td colspan=\"2\" style=\"padding: 3px 1px 3px 1px; text-align: center\">")
 			.replace(
-				"<!--break--><br />",
+				"<!--break-->",
 				"")
 			.replace(
 				"</span></a></td></tr><br /><tr class=\"odd\"><br /><br /></tr><br /></table>",
@@ -86,6 +92,12 @@ public class Post {
 			.replace(
 				"<br /><br /><h2>Minute by Minute</h2><br /><div id=\"show\" style=\"display: none\"><a href=\"javascript:HideContent('show'); ShowContent('minute-by-minute')\" style=\"font-size: x-small\">[show]</a></div><br /><div id=\"minute-by-minute\"><div id=\"hide\" style=\"display: none\"><a href=\"javascript:HideContent('minute-by-minute'); ShowContent('show')\" style=\"font-size: x-small\">[hide]</a></div><br />",
 				"<h2>Minute by Minute</h2><div id=\"minute-by-minute\">")
+			.replace(
+				"<div id=\"show\" style=\"display: none\"><a href=\"javascript:HideContent('show'); ShowContent('minute-by-minute')\" style=\"font-size: x-small\">[show]</a></div>",
+				"")
+			.replace(
+				"<div id=\"hide\" style=\"display: none\"><a href=\"javascript:HideContent('minute-by-minute'); ShowContent('show')\" style=\"font-size: x-small\">[hide]</a></div>",
+				"")
 			.replace(
 				"(minutes are in bold)",
 				"(minutes are in bold)<br />")
@@ -115,7 +127,38 @@ public class Post {
 				"<a href=\"/full-review/")
 			.replace(
 				"<a href=\"list/",
-				"<a href=\"/list/");
+				"<a href=\"/list/")
+			.replace(
+				"\" /><span><b>Gameplay</b>:&nbsp;",
+				"\" /><br><span><b>Gameplay</b>:&nbsp;")
+			.replace(
+				"<span class=\"score-type\">Gameplay</span>",
+				"<br><br><span class=\"score-type\">Gameplay</span>")
+			.replace(
+				"<span class=\"score-type\">Fun Factor</span>",
+				"<br><br><span class=\"score-type\">Fun Factor</span>")
+			.replace(
+				"<span class=\"score-type\">Graphics</span>",
+				"<br><br><span class=\"score-type\">Graphics</span>")
+			.replace(
+				"<span class=\"score-type\">Story</span>",
+				"<br><br><span class=\"score-type\">Story</span>")
+			.replace(
+				"<span class=\"score-type\">Overall First Hour</span>",
+				"<br><br><span class=\"score-type\">Overall First Hour</span>")
+			.replace(
+				"<span class=\"score-type\">Overall</span>",
+				"<br><br><span class=\"score-type\">Overall</span>")
+			.replaceAll(
+				"<br><span><b>Gameplay<\\/b>:&nbsp;\\d\\d*<br \\/><b>Fun&nbsp;Factor<\\/b>:&nbsp;\\d\\d*<br \\/><b>Gfx\\/Sound<\\/b>:&nbsp;\\d\\d*<br \\/><b>Story<\\/b>:&nbsp;\\d\\d*<br \\/><\\/span>",
+				"")
+			.replaceAll(
+				"<span class=\"score-type\">(?!Minutes to Action)([^<]+)</span>:\\s*(\\d+)",
+				"<span class=\"score-type\">$1</span>: $2<br>")
+			.replace(
+				"{{/first-hour-review/god-of-war-2\" >God of War 2",
+				"<a href=\"/first-hour-review/god-of-war-2\">God of War 2</a>")
+		;
 		
 		return body;
 	}

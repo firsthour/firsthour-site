@@ -9,7 +9,7 @@
 	</div>
 <#else></#if>
 
-<p>${content.date?string("MMMM dd, yyyy")} by
+<p>${content.date?string("MMMM d, yyyy")} by
 	<#list content.author?split(",") as author>
 		<a href="/writer/${author?lower_case?replace(" ", "-")?replace(".", "")}">${author}</a><#sep>, </#sep>
 	</#list>
