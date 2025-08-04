@@ -45,13 +45,13 @@ public class Post {
 		post.setTeaser(teaser);
 		
 		String body = result.getString("body");
-		body = cleanBody(body);
+		body = cleanBody(body, post.getUrl().startsWith("beyond-the-first-hour-review"));
 		post.setBody(body);
 		
 		return post;
 	}
 
-	private static String cleanBody(String body) {
+	private static String cleanBody(String body, boolean beyondReview) {
 		body = body
 			.replace(
 				"\r\n\r\n<span class=\"minute-counter\">",
@@ -141,6 +141,9 @@ public class Post {
 				"<span class=\"score-type\">Graphics</span>",
 				"<br><br><span class=\"score-type\">Graphics</span>")
 			.replace(
+				"<span class=\"score-type\">Graphics and Sound</span>",
+				"<br><br><span class=\"score-type\">Graphics and Sound</span>")
+			.replace(
 				"<span class=\"score-type\">Story</span>",
 				"<br><br><span class=\"score-type\">Story</span>")
 			.replace(
@@ -158,7 +161,19 @@ public class Post {
 			.replace(
 				"{{/first-hour-review/god-of-war-2\" >God of War 2",
 				"<a href=\"/first-hour-review/god-of-war-2\">God of War 2</a>")
+			.replace(
+				"<script type=\"text/javascript\">document.getElementById('hide').style.display = ''</script>",
+				"")
+			.replace(
+				"<h2 style=\"line-height: 50%\">Scores</h2>\r\n<br><br>",
+				"<h2 style=\"line-height: 50%\">Scores</h2>\r\n<br>")
 		;
+		
+		if(beyondReview) {
+			body = body.replace(
+				"</div><a name=\"scores\"></a>",
+				"<a name=\"scores\"></a>");
+		}
 		
 		return body;
 	}
