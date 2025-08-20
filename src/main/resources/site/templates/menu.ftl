@@ -76,9 +76,6 @@
 						<a href="/writer/steve">Steve</a>
 					</li>
 					<li>
-						<a href="/writer/jonathan-ramundi">Jonathan Ramundi</a>
-					</li>
-					<li>
 						<a href="/writer/paul-eastwood">Paul Eastwood</a>
 					</li>
 					<li>
@@ -86,6 +83,9 @@
 					</li>
 					<li>
 						<a href="/writer/mike-in-omaha">Mike in Omaha</a>
+					</li>
+					<li>
+						<a href="/writer/jonathan-ramundi">Jonathan Ramundi</a>
 					</li>
 					<li>
 						<a href="/writer/ian-m-bagley">Ian M. Bagley</a>

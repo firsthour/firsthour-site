@@ -1,3 +1,8 @@
+body {
+	font-size: 17px;
+	line-height: 1.6em;
+}
+
 #wrap {
 	background-color: #F3F3F8;
 }
@@ -57,7 +62,7 @@
 }
 
 .textBody {
-	width: 850px;
+	width: 800px;
 	padding-left: 26px;
 	padding-right: 26px;
 	background-color: #FFFFFF;
@@ -119,7 +124,7 @@ a:focus {
 	border-bottom: none;
 }
 
-.summaryimage, .teaser_image, .cover_image_no_infobox {
+.summaryimage, .teaser_image, .cover_image_no_infobox, .image {
 	padding: 6px;
 	margin: 0px 6px;
 	border-top: 1px solid #ddd;
@@ -134,4 +139,22 @@ a:has(> img.summaryimage) {
 
 .listPost {
 	display: inline-block;
+}
+
+.question {
+	font-weight:bold;
+}
+
+.infoboximage {
+	text-align: center;
+}
+
+.gamename {
+	text-align: center;
+	font-size: large;
+	padding-bottom: 0;
+}
+
+.centerinfobox {
+	text-align: center;
 }

@@ -71,6 +71,7 @@ public class Prep {
 				LEFT OUTER JOIN url_alias url ON url.src = CONCAT('node/', n.nid)
 				left outer join node_type nt on n.type = nt.type
 				WHERE n.status = 1
+				AND nt.name <> 'Poll'
 				ORDER BY n.created asc
 			""");
 			
