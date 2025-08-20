@@ -1,6 +1,11 @@
 package net.firsthour.site;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 import org.jbake.app.configuration.JBakeConfiguration;
 import org.jbake.app.configuration.JBakeConfigurationFactory;
@@ -26,11 +31,28 @@ public class Cook {
 		Baker baker = new Baker();
 		baker.bake(config);
 		
+		cleanup();
+		
 		BakeWatcher watcher = new BakeWatcher();
 		watcher.start(config);
 		
 		try(JettyServer server = new JettyServer()) {
 			server.run(destination.getPath(), config);
+		}
+	}
+	
+	private void cleanup() throws IOException {
+		Path output = Paths.get("src/main/resources/site/output").toAbsolutePath();
+		if(Files.exists(output)) {
+			try(Stream<Path> walkStream = Files.walk(output)) {
+				walkStream.filter(p -> p.toFile().isFile() && ".gitignore".equalsIgnoreCase(p.toFile().getName())).forEach(f -> {
+					try {
+						Files.delete(f);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
 		}
 	}
 }
