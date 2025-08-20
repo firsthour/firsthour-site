@@ -5,7 +5,7 @@
 		
 		<div id="footer">
 			<div class="container">
-				<p class="muted credit">&copy; 2025</p>
+				<p class="muted credit">&copy; ${.now?string('yyyy')}</p>
 			</div>
 		</div>
 		
