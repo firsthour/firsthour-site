@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 import net.firsthour.model.Post;
 
 public class PostWriter {
@@ -55,6 +57,23 @@ public class PostWriter {
 	}
 	
 	private String getJbakeHeader() {
+		String image = "";
+		if(post.getBody().toLowerCase().contains("<img")) {
+			image = post.getBody().replaceAll("(?si).*?<img.*?src=\"([^\"]+)\".*", "$1");
+			if(StringUtils.isNotBlank(image) && image.contains("-thumb.")) {
+				image = image.replace("-thumb.", ".");
+			}
+		}
+		
+		//use the teaser with HTML stripped out
+		String description =
+			post.getTeaser()
+				.replaceAll("<[^>]*>", " ")
+				.replace("\"", "'")
+				.replace("<", "")
+				.replace(">", "")
+				.trim();
+		
 		return
 			"""
 			title=TITLE
@@ -64,12 +83,16 @@ public class PostWriter {
 			teaser=TEASER
 			author=AUTHOR
 			siteType=SITETYPE
+			image=IMAGE
+			description=DESCRIPTION
 			~~~~~~
 			"""
 			.replace("TITLE", post.getTitle())
 			.replace("DATE", post.getDate().format(DTF))
 			.replace("TEASER", post.getTeaser())
 			.replace("AUTHOR", post.getAuthors().stream().collect(Collectors.joining(",")))
-			.replace("SITETYPE", post.getSiteType());
+			.replace("SITETYPE", post.getSiteType())
+			.replace("IMAGE", image)
+			.replace("DESCRIPTION", description);
 	}
 }
