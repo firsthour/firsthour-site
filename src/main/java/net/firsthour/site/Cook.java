@@ -15,11 +15,9 @@ import org.jbake.launcher.JettyServer;
 
 public class Cook {
 
-	public static void main(String[] args) throws Exception {
-		new Cook().cook();
-	}
-	
 	public void cook() throws Exception {
+		mergeManual();
+		
 		File source = new File("src/main/resources/site");
 		File destination = new File("src/main/resources/site/output");
 		JBakeConfiguration config =
@@ -52,6 +50,32 @@ public class Cook {
 						e.printStackTrace();
 					}
 				});
+			}
+		}
+	}
+	
+	//copy contents of the manual directory into content
+	private void mergeManual() throws IOException {
+		Path content = Paths.get("src/main/resources/site/content").toAbsolutePath();
+		Path manual = Paths.get("src/main/resources/site/manual").toAbsolutePath();
+		if(Files.exists(manual)) {
+			try(var s1 = Files.newDirectoryStream(manual)) {
+				for(Path sub : s1) {
+					if(Files.isDirectory(sub)) {
+						Files.createDirectories(content.resolve(sub.getFileName()));
+						try(var s2 = Files.newDirectoryStream(sub)) {
+							for(Path sub2 : s2) {
+								Files.copy(
+									sub2,
+									content
+										.resolve(sub.getFileName())
+										.resolve(sub2.getFileName()));
+							}
+						}
+					} else {
+						Files.copy(sub, content.resolve(sub.getFileName()));
+					}
+				}
 			}
 		}
 	}

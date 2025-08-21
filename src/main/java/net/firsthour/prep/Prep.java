@@ -107,28 +107,5 @@ public class Prep {
 		}
 		
 		Files.createDirectories(content);
-		
-		//copy contents of the directory manual into content
-		Path manual = Paths.get("src/main/resources/site/manual").toAbsolutePath();
-		if(Files.exists(manual)) {
-			try(var s1 = Files.newDirectoryStream(manual)) {
-				for(Path sub : s1) {
-					if(Files.isDirectory(sub)) {
-						Files.createDirectories(content.resolve(sub.getFileName()));
-						try(var s2 = Files.newDirectoryStream(sub)) {
-							for(Path sub2 : s2) {
-								Files.copy(
-									sub2,
-									content
-										.resolve(sub.getFileName())
-										.resolve(sub2.getFileName()));
-							}
-						}
-					} else {
-						Files.copy(sub, content.resolve(sub.getFileName()));
-					}
-				}
-			}
-		}
 	}
 }

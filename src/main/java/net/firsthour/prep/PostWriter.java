@@ -57,23 +57,6 @@ public class PostWriter {
 	}
 	
 	private String getJbakeHeader() {
-		String image = "";
-		if(post.getBody().toLowerCase().contains("<img")) {
-			image = post.getBody().replaceAll("(?si).*?<img.*?src=\"([^\"]+)\".*", "$1");
-			if(StringUtils.isNotBlank(image) && image.contains("-thumb.")) {
-				image = image.replace("-thumb.", ".");
-			}
-		}
-		
-		//use the teaser with HTML stripped out
-		String description =
-			post.getTeaser()
-				.replaceAll("<[^>]*>", " ")
-				.replace("\"", "'")
-				.replace("<", "")
-				.replace(">", "")
-				.trim();
-		
 		return
 			"""
 			title=TITLE
@@ -92,7 +75,31 @@ public class PostWriter {
 			.replace("TEASER", post.getTeaser())
 			.replace("AUTHOR", post.getAuthors().stream().collect(Collectors.joining(",")))
 			.replace("SITETYPE", post.getSiteType())
-			.replace("IMAGE", image)
-			.replace("DESCRIPTION", description);
+			.replace("IMAGE", findFirstImagePath())
+			.replace("DESCRIPTION", buildDescription());
+	}
+	
+	//use the teaser with HTML stripped out
+	private String buildDescription() {
+		String description =
+			post.getTeaser()
+				.replaceAll("<[^>]*>", " ")
+				.replace("\"", "'")
+				.replace("<", "")
+				.replace(">", "")
+				.trim();
+		return description;
+	}
+	
+	//find the first image source in the body
+	private String findFirstImagePath() {
+		String image = "";
+		if(post.getBody().toLowerCase().contains("<img")) {
+			image = post.getBody().replaceAll("(?si).*?<img.*?src=\"([^\"]+)\".*", "$1");
+			if(StringUtils.isNotBlank(image) && image.contains("-thumb.")) {
+				image = image.replace("-thumb.", ".");
+			}
+		}
+		return image;
 	}
 }
