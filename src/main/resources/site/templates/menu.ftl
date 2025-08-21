@@ -17,7 +17,7 @@
 						<li><a href="https://bsky.app/profile/firsthour.net" target="_blank">Bluesky</a></li>
 						<li><a href="/archive.html">Archive</a></li>
 						<li><a href="/${config.feed_file}">RSS Feed</a></li>
-						<li><a href="/about">About</a></li>
+						<li><a href="/blog/first-hour-returns">About</a></li>
 					</ul>
 				</div>
 			</div>

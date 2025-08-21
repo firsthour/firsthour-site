@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 import org.jbake.app.configuration.JBakeConfiguration;
@@ -69,11 +70,15 @@ public class Cook {
 									sub2,
 									content
 										.resolve(sub.getFileName())
-										.resolve(sub2.getFileName()));
+										.resolve(sub2.getFileName()),
+									StandardCopyOption.REPLACE_EXISTING);
 							}
 						}
 					} else {
-						Files.copy(sub, content.resolve(sub.getFileName()));
+						Files.copy(
+							sub,
+							content.resolve(sub.getFileName()),
+							StandardCopyOption.REPLACE_EXISTING);
 					}
 				}
 			}
