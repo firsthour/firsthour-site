@@ -301,6 +301,9 @@ public class Post {
 			.replace(
 				"<TR class=even>\r\n<TH class=centerinfobox colSpan=2><A class=amazonlink href=\"http://www.amazon.com/dp/B002EE7OKE?tag=thfiho0a-20\" target=_blank>Buy from Amazon</A></TH></TR>",
 				"")
+			.replace(
+				"<p>The First Hour is a unique video game review site",
+				"<p><b>Updated</b>: See the new <a href='/blog/first-hour-returns'>About page</a>.</p><p>The First Hour is a unique video game review site")
 		;
 		
 		if(fixDanglingDiv) {
