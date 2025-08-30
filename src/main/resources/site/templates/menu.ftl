@@ -1,18 +1,12 @@
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
 					<a class="navbar-brand" href="/">
 						<img src="/images/first-hour-logo.png" />
 						<span class="menuTitle">First Hour</span>
 					</a>
 				</div>
-				<div class="navbar-collapse collapse">
+				<div>
 					<ul class="nav navbar-nav">
 						<li><a href="https://bsky.app/profile/firsthour.net" target="_blank">Bluesky</a></li>
 						<li><a href="/archive.html">Archive</a></li>

@@ -30,6 +30,8 @@ public class Cook {
 		Baker baker = new Baker();
 		baker.bake(config);
 		
+		mergeHtml();
+		
 		cleanup();
 		
 		BakeWatcher watcher = new BakeWatcher();
@@ -57,18 +59,31 @@ public class Cook {
 	
 	//copy contents of the manual directory into content
 	private void mergeManual() throws IOException {
-		Path content = Paths.get("src/main/resources/site/content").toAbsolutePath();
 		Path manual = Paths.get("src/main/resources/site/manual").toAbsolutePath();
-		if(Files.exists(manual)) {
-			try(var s1 = Files.newDirectoryStream(manual)) {
+		Path content = Paths.get("src/main/resources/site/content").toAbsolutePath();
+		
+		merge(manual, content);
+	}
+	
+	//copy contents of the html directory into output
+	private void mergeHtml() throws IOException {
+		Path html = Paths.get("src/main/resources/site/html").toAbsolutePath();
+		Path output = Paths.get("src/main/resources/site/output").toAbsolutePath();
+		
+		merge(html, output);
+	}
+	
+	private void merge(Path source, Path destination) throws IOException {
+		if(Files.exists(source)) {
+			try(var s1 = Files.newDirectoryStream(source)) {
 				for(Path sub : s1) {
 					if(Files.isDirectory(sub)) {
-						Files.createDirectories(content.resolve(sub.getFileName()));
+						Files.createDirectories(destination.resolve(sub.getFileName()));
 						try(var s2 = Files.newDirectoryStream(sub)) {
 							for(Path sub2 : s2) {
 								Files.copy(
 									sub2,
-									content
+									destination
 										.resolve(sub.getFileName())
 										.resolve(sub2.getFileName()),
 									StandardCopyOption.REPLACE_EXISTING);
@@ -77,7 +92,7 @@ public class Cook {
 					} else {
 						Files.copy(
 							sub,
-							content.resolve(sub.getFileName()),
+							destination.resolve(sub.getFileName()),
 							StandardCopyOption.REPLACE_EXISTING);
 					}
 				}
