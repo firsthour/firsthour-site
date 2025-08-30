@@ -9,23 +9,12 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 import org.jbake.app.configuration.JBakeConfiguration;
-import org.jbake.app.configuration.JBakeConfigurationFactory;
-import org.jbake.launcher.BakeWatcher;
 import org.jbake.launcher.Baker;
-import org.jbake.launcher.JettyServer;
 
 public class Cook {
 
-	public void cook() throws Exception {
+	public void cook(JBakeConfiguration config) throws Exception {
 		mergeManual();
-		
-		File source = new File("src/main/resources/site");
-		File destination = new File("src/main/resources/site/output");
-		JBakeConfiguration config =
-			new JBakeConfigurationFactory().createDefaultJbakeConfiguration(
-				source,
-				destination,
-				true);
 		
 		Baker baker = new Baker();
 		baker.bake(config);
@@ -33,13 +22,6 @@ public class Cook {
 		mergeHtml();
 		
 		cleanup();
-		
-		BakeWatcher watcher = new BakeWatcher();
-		watcher.start(config);
-		
-		try(JettyServer server = new JettyServer()) {
-			server.run(destination.getPath(), config);
-		}
 	}
 	
 	private void cleanup() throws IOException {
