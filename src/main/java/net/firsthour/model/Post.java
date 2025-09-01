@@ -433,6 +433,9 @@ public class Post {
 			.replace(
 				"also be developer Quantic Dream",
 				"also by developer Quantic Dream")
+			.replace(
+				"/sites/default/files/images/game-of-the-year-thumb.png",
+				"/images/game-of-the-year-thumb.png")
 		;
 		
 		teaser = teaser.replace("  ", " ");

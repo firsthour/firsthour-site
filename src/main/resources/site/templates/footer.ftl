@@ -1,15 +1,11 @@
-				</div> <!-- textBody from menu -->
-			</div> <!-- container from menu -->
-			<div id="push"></div>
-		</div> <!-- wrap from header -->
+		</div> <!-- textBody from menu -->
 		
-		<div id="footer">
-			<div class="container">
-				<p class="muted credit">&copy; ${.now?string('yyyy')}</p>
-			</div>
+		<div class="mobileMenu">
+			<#include "navigation.ftl">
 		</div>
 		
-		<script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/jquery-1.11.1.min.js"></script>
-		<script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/bootstrap.min.js"></script>
+		<div class="footer">
+			&copy; ${.now?string('yyyy')} Greg Noe
+		</div>
 	</body>
 </html>

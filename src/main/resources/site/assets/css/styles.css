@@ -1,71 +1,111 @@
 body {
 	font-size: 17px;
 	line-height: 1.6em;
-}
-
-#wrap {
 	background-color: #F3F3F8;
 }
 
-.container {
-	width: 1200px;
+.header {
+	background: linear-gradient(180deg, rgba(25, 37, 81, 1) 0%, rgba(132, 140, 177, 1) 100%);
+	border-color: #e7e7e7;
+	text-align: center;
 }
 
-.navbar {
-	min-height: 105px;
-	background: #091E45;
-	background: linear-gradient(180deg, rgba(9, 30, 69, 1) 0%, rgba(132, 140, 177, 1) 100%);
-	float: none;
-	display: inline-block;
+.logoName {
+	padding: 15px 0 15px 0;
 }
 
-.navbar-default .navbar-brand {
-	color: #FFFFFF;
-	font-size: 30px;
-	font-weight: bold;
-	height: 100%;
-}
-
-.navbar-default .navbar-brand:hover {
-	color: #FFFFFF;
-}
-
-.navbar-default .navbar-brand:focus {
-	color: #FFFFFF;
-	background-color: inherit;
-}
-
-#wrap > .container {
-	padding-top: 100px;
+.logoName a {
+	text-decoration: none;
 }
 
 .menuTitle {
+	color: #ffffff;
+	font-size: 30px;
+	font-weight: bold;
 	margin-left: 10px;
 	position: relative;
 	top: 5px;
 }
 
-.navbar-nav {
-	float: right;
+.menu {
+	text-align: center;
 }
 
-.navbar-default .navbar-nav > li > a {
-	color: #FFFFFF;
+/* 1240px shows both sidebars without any cutoff */
+@media(width >= 1240px) {
+	.menu {
+		display: none;
+	}
+	
+	.textBody {
+		width: 800px;
+		padding-left: 26px;
+		padding-right: 26px;
+	}
+	
+	.mobileMenu {
+		display: none;
+	}
 }
 
-.navbar-default .navbar-nav > li > a:hover {
-	color: #CCCCCC;
+/* 1240px shows both sidebars without any cutoff */
+@media(width < 1240px) {
+	.sideBar {
+		display: none;
+	}
+	
+	.textBody {
+		width: 100%;
+		padding-left: 10px;
+		padding-right: 10px;
+		max-width: 800px
+	}
+	
+	.mobileMenu {
+		padding-left: 10px;
+		max-width: 800px;
+		margin: auto;
+	}
 }
 
-.navbar-default .navbar-nav > li > a:focus {
-	color: #AAAAAA;
+.menu a {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.sideBar {
+	position: absolute;
+}
+
+.leftSideBar {
+	right: 100%;
+	min-width: 200px;
+	margin-right: 20px;
+}
+
+.leftSideBar h4 {
+	font-weight: bold;
+}
+
+.rightSideBar {
+	left: 100%;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.sideBarList {
+	padding-left: 0;
 }
 
 .textBody {
-	width: 800px;
-	padding-left: 26px;
-	padding-right: 26px;
-	background-color: #FFFFFF;
+	position: relative;
+	margin: auto;
+	background-color: #ffffff;
+}
+
+.footer {
+	text-align: center;
+	margin-top: 10px;
 }
 
 .minute-counter {
@@ -108,20 +148,13 @@ a:focus {
 .postTitle {
 	font-weight: bold;
 	margin-bottom: 0;
-}
-
-.sideBarList {
-	padding-left: 0;
-}
-
-.leftSideBar {
-	min-width: 150px;
-	margin-right: 20px;
-	padding-top: 10px;
+	margin-top: 0;
+	padding-top: 20px;
 }
 
 .page-header {
-	border-bottom: none;
+	padding-bottom: 9px;
+	margin: 0 0 20px 0;
 }
 
 .summaryimage, .teaser_image, .cover_image_no_infobox, .image {
@@ -157,4 +190,8 @@ a:has(> img.summaryimage) {
 
 .centerinfobox {
 	text-align: center;
+}
+
+.byline {
+	margin-top: 10px;
 }

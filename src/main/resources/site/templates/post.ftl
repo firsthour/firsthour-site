@@ -3,7 +3,7 @@
 <#include "menu.ftl">
 
 <#if (content.title)??>
-	<div class="page-header">
+	<div class="pageHeader">
 		<h1 class="postTitle">${content.title}</h1>
 		<h3 class="siteType">${content.siteType}</h3>
 	</div>

@@ -1,101 +1,38 @@
-		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/">
-						<img src="/images/first-hour-logo.png" />
-						<span class="menuTitle">First Hour</span>
-					</a>
-				</div>
-				<div>
-					<ul class="nav navbar-nav">
-						<li><a href="https://bsky.app/profile/firsthour.net" target="_blank">Bluesky</a></li>
-						<li><a href="/archive.html">Archive</a></li>
-						<li><a href="/${config.feed_file}">RSS Feed</a></li>
-						<li><a href="/blog/first-hour-returns">About</a></li>
-					</ul>
-				</div>
-			</div>
+<div class="header">
+	<div class="logoName">
+		<a class="logoLink" href="/">
+			<img src="/images/first-hour-logo.png" />
+			<span class="menuTitle">First Hour</span>
+		</a>
+	</div>
+</div>
+
+<div class="menu">
+	<div>
+		<a href="https://bsky.app/profile/firsthour.net" target="_blank">Bluesky</a>
+		<a href="/archive.html">Archive</a>
+		<a href="/${config.feed_file}">Feed</a>
+		<a href="/blog/first-hour-returns">About</a>
+	</div>
+</div>
+
+<div class="textBody">
+	<div class="sideBar rightSideBar">
+		<div>
+			<a href="https://bsky.app/profile/firsthour.net" target="_blank">Bluesky</a>
 		</div>
-		
-		<div class="container" style="display: flex">
-			<div class="leftSideBar">
-				<h4 style="font-weight: bold">Reviews</h4>
-				<ul class="sideBarList">
-					<li>
-						<a href="/first-hour-review">The First Hour</a>
-					</li>
-					<li>
-						<a href="/full-review">Full Reviews</a>
-					</li>
-					<li>
-						<a href="/more-reviews">More Reviews</a>
-					</li>
-				</ul>
-				<h4 style="font-weight: bold">Other Writings</h4>
-				<ul class="sideBarList">
-					<li>
-						<a href="/goty">Game of the Year Awards</a>
-					</li>
-					<li>
-						<a href="/recap">First Hour Recaps</a>
-					</li>
-					<li>
-						<a href="/nostalgia">Gaming Nostalgia</a>
-					</li>
-					<li>
-						<a href="/preview">Previews</a>
-					</li>
-					<li>
-						<a href="/editorial">Editorials</a>
-					</li>
-					<li>
-						<a href="/blog">Blog Posts</a>
-					</li>
-					<li>
-						<a href="/sports-preenactment">Sports Pre-enactments</a>
-					</li>
-					<li>
-						<a href="/podcast">Podcasts</a>
-					</li>
-				</ul>
-				<h4 style="font-weight: bold">Writers</h4>
-				<ul class="sideBarList">
-					<li>
-						<a href="/writer/greg-noe">Greg Noe</a>
-					</li>
-					<li>
-						<a href="/writer/nate">Nate</a>
-					</li>
-					<li>
-						<a href="/writer/steve">Steve</a>
-					</li>
-					<li>
-						<a href="/writer/paul-eastwood">Paul Eastwood</a>
-					</li>
-					<li>
-						<a href="/writer/paul-abbamondi">Paul Abbamondi</a>
-					</li>
-					<li>
-						<a href="/writer/mike-in-omaha">Mike in Omaha</a>
-					</li>
-					<li>
-						<a href="/writer/jonathan-ramundi">Jonathan Ramundi</a>
-					</li>
-					<li>
-						<a href="/writer/ian-m-bagley">Ian M. Bagley</a>
-					</li>
-					<li>
-						<a href="/writer/grant">Grant</a>
-					</li>
-					<li>
-						<a href="/writer/tyler-smith">Tyler Smith</a>
-					</li>
-					<li>
-						<a href="/writer/tyler-james-braatz">Tyler James Braatz</a>
-					</li>
-					<li>
-						<a href="/writer/michael-t">Michael T</a>
-					</li>
-				</ul>
-			</div>
-			<div class="textBody">
+		<div>
+			<a href="/archive.html">Archive</a>
+		</div>
+		<div>
+			<a href="/${config.feed_file}">Feed</a>
+		</div>
+		<div>
+			<a href="/blog/first-hour-returns">About</a>
+		</div>
+	</div>
+	
+	<div class="sideBar leftSideBar">
+		<#include "navigation.ftl">
+	</div>
+	
