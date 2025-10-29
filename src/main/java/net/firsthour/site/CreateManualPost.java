@@ -13,10 +13,10 @@ public class CreateManualPost {
 	
 	public static void main(String[] args) throws IOException {
 		//update below
-		Type type = Type.GOTY;
-		String title = "2013 Game of the Year";
-		String screenshotDir = "gone-home";
-		String headerImage = "gone-home-header.png"; //bluesky likes 1.91 ratio (eg. 1000x523)
+		Type type = Type.DEVLOG;
+		String title = "My First Game Jam - Step and Deliver";
+		String screenshotDir = "step-and-deliver";
+		String headerImage = "step-and-deliver-header.png"; //bluesky likes 1.91 ratio (eg. 1000x523)
 		//update above
 		
 		create(type, title, screenshotDir, headerImage);
@@ -26,26 +26,10 @@ public class CreateManualPost {
 	//images use <IMG name-of-image.png>
 	private static String text =
 """
-this is
-my teaser
-what do
-you
 
-
-
-think
-
-<BREAK>
-this is the rest of the
-<IMG gone-home-family-portrait-kaitlin-samantha-terrence-janice-greenbriar.png>
-text
-<IMG gone-home-spooky-family-living-room-tv-glow.jpg>
-why don't
-
-<IMG different-dir/something-else.jpg>
-
-you read it all
 """;
+	
+	private static final String PARA = "</p>\n<p>";
 	
 	private static void create(
 			Type type,
@@ -60,8 +44,8 @@ you read it all
 			throw new IllegalArgumentException("missing teaser");
 		}
 		
-		String teaser = parts[0];
-		String body = parts[1];
+		String teaser = parts[0].trim();
+		String body = parts[1].trim();
 		
 		sb.append("title=")
 			.append(title)
@@ -82,7 +66,7 @@ you read it all
 					title,
 					screenshotDir,
 					headerImage,
-					teaser,
+					deleteLinks(teaser),
 					true))
 			.append("\n")
 			
@@ -99,7 +83,7 @@ you read it all
 			.append("\n")
 			
 			.append("description=")
-			.append(stripTeaser(teaser))
+			.append(stripTeaser(deleteLinks(teaser)))
 			.append("\n")
 			
 			.append("~~~~~~")
@@ -115,9 +99,7 @@ you read it all
 					false))
 			.append("\n")
 			
-			.append("<p>")
-			.append(buildBody(screenshotDir, body))
-			.append("</p>");
+			.append(buildBody(screenshotDir, "<p>" + body + "</p>"));
 		
 		createFile(
 			sb.toString(),
@@ -175,7 +157,8 @@ you read it all
 	
 	private static String buildBody(String screenshotDir, String body) {
 		body = reduceLineBreaks(body);
-		body = body.replace("\n", "</p>\n<p>");
+		body = body.replace("\n", PARA);
+		body = breakUpParagraphTags(body);
 		
 		String result = "";
 		for(String line : body.split("\\n")) {
@@ -229,6 +212,34 @@ you read it all
 		return image.trim().replace("-", " ").substring(0, image.indexOf("."));
 	}
 	
+	private static String deleteLinks(String teaser) {
+		return teaser.replaceAll("\\<a href=.*?\\>", "").replaceAll("\\<\\/a\\>", "");
+	}
+	
+	private static String breakUpParagraphTags(String body) {
+		return body
+			.replace(PARA + "<ul>" + PARA, "</p>\n<ul>\n")
+			.replace(PARA + "<ol>" + PARA, "</p>\n<ol>\n")
+			.replace("</li>" + PARA, "</li>\n")
+			.replace("</ul>" + PARA, "</ul>\n<p>")
+			.replace("</ol>" + PARA, "</ol>\n<p>")
+			.replace(PARA + "<h1>", "</p>\n<h2>")
+			.replace("<p><h1>", "<h1>")
+			.replace(PARA + "<h2>", "</p>\n<h2>")
+			.replace("<p><h2>", "<h2>")
+			.replace(PARA + "<h3>", "</p>\n<h2>")
+			.replace("<p><h3>", "<h3>")
+			.replace(PARA + "<h4>", "</p>\n<h2>")
+			.replace("<p><h4>", "<h4>")
+			.replace(PARA + "<h5>", "</p>\n<h2>")
+			.replace("<p><h5>", "<h5>")
+			.replace("</h1>" + PARA, "</h1>\n<p>")
+			.replace("</h2>" + PARA, "</h2>\n<p>")
+			.replace("</h3>" + PARA, "</h3>\n<p>")
+			.replace("</h4>" + PARA, "</h4>\n<p>")
+			.replace("</h5>" + PARA, "</h5>\n<p>");
+	}
+	
 	private static String reduceLineBreaks(String text) {
 		boolean foundDoubleLineBreak = false;
 		do {
@@ -241,7 +252,7 @@ you read it all
 	}
 	
 	private static String convertTitleToSlug(String title) {
-		return title.toLowerCase().replace(" ", "-");
+		return title.toLowerCase().replace(" ", "-").replace("---", "-");
 	}
 	
 	private static void createFile(String output, Type type, String title, String screenshotDir) throws IOException {

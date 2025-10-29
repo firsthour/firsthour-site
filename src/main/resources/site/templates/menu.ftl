@@ -30,6 +30,9 @@
 		<div>
 			<a href="/blog/first-hour-returns">About</a>
 		</div>
+		<div>
+			<a href="https://firsthour.itch.io/step-and-deliver" target="_blank">itch.io</a>
+		</div>
 	</div>
 	
 	<div class="sideBar leftSideBar">

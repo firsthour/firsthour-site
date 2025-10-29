@@ -10,7 +10,8 @@ public enum Type {
 	GOTY("goty", "Game of the Year Awards"),
 	MOVIE_REVIEW("movie-review", "Movie Review"),
 	NOSTALGIA("nostalgia", "Gaming Nostalgia"),
-	SEAL_OF_QUALITY("seal-of-quality", "Seal of Quality");
+	SEAL_OF_QUALITY("seal-of-quality", "Seal of Quality"),
+	DEVLOG("devlog", "Devlog");
 	
 	public final String dir;
 	public final String siteType;

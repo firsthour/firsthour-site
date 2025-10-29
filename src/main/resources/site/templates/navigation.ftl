@@ -36,6 +36,9 @@
 	<li>
 		<a href="/podcast">Podcasts</a>
 	</li>
+	<li>
+		<a href="/devlog">Devlog</a>
+	</li>
 </ul>
 <h4>Writers</h4>
 <ul class="sideBarList">

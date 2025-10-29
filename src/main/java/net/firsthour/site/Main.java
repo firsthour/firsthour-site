@@ -25,6 +25,11 @@ public class Main {
 		steps.addAll(Arrays.asList(args));
 		
 		boolean prep = steps.contains("prep");
+		
+		if(prep) {
+			throw new RuntimeException("are you absolutely sure you want to prep ever again???");
+		}
+		
 		boolean cook = steps.contains("cook");
 		boolean serve = steps.contains("serve");
 		
