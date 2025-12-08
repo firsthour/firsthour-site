@@ -13,13 +13,14 @@ public class CreateManualPost {
 	
 	public static void main(String[] args) throws IOException {
 		//update below
-		Type type = Type.DEVLOG;
-		String title = "My First Game Jam - Step and Deliver";
-		String screenshotDir = "step-and-deliver";
-		String headerImage = "step-and-deliver-header.png"; //bluesky likes 1.91 ratio (eg. 1000x523)
+		Type type = Type.FULL_REVIEW;
+		String title = "Angeline Era";
+		String screenshotDir = "angeline-era";
+		String headerImage = "angeline-era-header.png"; //bluesky likes 1.91 ratio (eg. 1000x523 - 1.912)
+		LocalDate date = LocalDate.of(2025, 12, 8); //LocalDate.now()
 		//update above
 		
-		create(type, title, screenshotDir, headerImage);
+		create(type, title, screenshotDir, headerImage, date);
 	}
 	
 	//include <BREAK> at teaser end
@@ -35,7 +36,8 @@ public class CreateManualPost {
 			Type type,
 			String title,
 			String screenshotDir,
-			String headerImage) throws IOException {
+			String headerImage,
+			LocalDate date) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		
 		String[] parts = text.split("\\<BREAK\\>");
@@ -52,7 +54,7 @@ public class CreateManualPost {
 			.append("\n")
 			
 			.append("date=")
-			.append(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+			.append(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
 			.append("\n")
 			
 			.append("type=post\n")
@@ -123,6 +125,12 @@ public class CreateManualPost {
 		
 		String url = convertTitleToSlug(title);
 		
+		teaser = teaser.replace("<a href=”", "<a href=\"");
+		teaser = teaser.replace("<a href=“", "<a href=\"");
+		teaser = teaser.replace("”>", "\">");
+		teaser = teaser.replace("“>", "\">");
+		teaser = teaser.replace("<a href", "<a target=\"_blank\" href");
+		
 		sb.append("<div class=\"manualTeaserImage\">");
 		
 		if(includeLink) {
@@ -191,6 +199,8 @@ public class CreateManualPost {
 			
 			result += line + "\n";
 		}
+		
+		result = result.replace("<a href", "<a target=\"_blank\" href");
 		
 		return result.trim();
 	}
