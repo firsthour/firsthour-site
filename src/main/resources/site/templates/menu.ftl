@@ -13,6 +13,8 @@
 		<a href="/archive.html">Archive</a>
 		<a href="/${config.feed_file}">Feed</a>
 		<a href="/blog/first-hour-returns">About</a>
+		<a href="https://firsthour.itch.io/step-and-deliver" target="_blank">itch.io</a>
+		<a href="https://github.com/firsthour" target="_blank">Github</a>
 	</div>
 </div>
 
@@ -32,6 +34,9 @@
 		</div>
 		<div>
 			<a href="https://firsthour.itch.io/step-and-deliver" target="_blank">itch.io</a>
+		</div>
+		<div>
+			<a href="https://github.com/firsthour" target="_blank">Github</a>
 		</div>
 	</div>
 	
