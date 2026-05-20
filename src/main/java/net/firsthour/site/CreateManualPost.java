@@ -14,10 +14,10 @@ public class CreateManualPost {
 	public static void main(String[] args) throws IOException {
 		//update below
 		Type type = Type.FULL_REVIEW;
-		String title = "Angeline Era";
-		String screenshotDir = "angeline-era";
-		String headerImage = "angeline-era-header.png"; //bluesky likes 1.91 ratio (eg. 1000x523 - 1.912)
-		LocalDate date = LocalDate.of(2025, 12, 8); //LocalDate.now()
+		String title = "Mouthwashing";
+		String screenshotDir = "mouthwashing";
+		String headerImage = "mouthwashing-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
+		LocalDate date = LocalDate.now(); //LocalDate.of(2026, 2, 26);
 		//update above
 		
 		create(type, title, screenshotDir, headerImage, date);
@@ -27,7 +27,6 @@ public class CreateManualPost {
 	//images use <IMG name-of-image.png>
 	private static String text =
 """
-
 """;
 	
 	private static final String PARA = "</p>\n<p>";
@@ -199,7 +198,11 @@ public class CreateManualPost {
 			
 			result += line + "\n";
 		}
-		
+
+		result = result.replace("<a href=”", "<a href=\"");
+		result = result.replace("<a href=“", "<a href=\"");
+		result = result.replace("”>", "\">");
+		result = result.replace("“>", "\">");
 		result = result.replace("<a href", "<a target=\"_blank\" href");
 		
 		return result.trim();
@@ -262,7 +265,14 @@ public class CreateManualPost {
 	}
 	
 	private static String convertTitleToSlug(String title) {
-		return title.toLowerCase().replace(" ", "-").replace("---", "-");
+		return title.toLowerCase()
+			.replace(" ", "-")
+			.replace("---", "-")
+			.replace(":", "")
+			.replace(",", "")
+			.replace("'", "")
+			.replace("\"", "")
+			.replace(".", "");
 	}
 	
 	private static void createFile(String output, Type type, String title, String screenshotDir) throws IOException {
