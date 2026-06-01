@@ -5,7 +5,7 @@
 		</div>
 		
 		<div class="footer">
-			&copy; ${.now?string('yyyy')} Greg Noe - 100% Human Made - No AI Used
+			&copy; 2007 - ${.now?string('yyyy')} Greg Noe - 100% Human Made - No AI Used
 		</div>
 	</body>
 </html>
