@@ -14,9 +14,9 @@ public class CreateManualPost {
 	public static void main(String[] args) throws IOException {
 		//update below
 		Type type = Type.FULL_REVIEW;
-		String title = "The Excavation of Hob's Barrow";
-		String screenshotDir = "excavation-of-hobs-barrow";
-		String headerImage = "excavation-of-hobs-barrow-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
+		String title = "Mina the Hollower";
+		String screenshotDir = "mina-the-hollower";
+		String headerImage = "mina-the-hollower-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
 		LocalDate date = LocalDate.now(); //LocalDate.of(2026, 2, 26);
 		//update above
 		
@@ -27,7 +27,6 @@ public class CreateManualPost {
 	//images use <IMG name-of-image.png>
 	private static String text =
 """
-
 """;
 	
 	private static final String PARA = "</p>\n<p>";
@@ -123,7 +122,7 @@ public class CreateManualPost {
 		teaser = reduceLineBreaks(teaser);
 		teaser = teaser.replace("\n", "</p><p>");
 		
-		String url = convertTitleToSlug(title);
+		String url = convertTitleToSlug(title) + "/";
 		
 		teaser = teaser.replace("<a href=”", "<a href=\"");
 		teaser = teaser.replace("<a href=“", "<a href=\"");

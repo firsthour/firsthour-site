@@ -1,7 +1,9 @@
 <div class="header">
 	<div class="logoName">
 		<a class="logoLink" href="/">
-			<img src="/images/first-hour-logo.png" />
+			<img
+				src="/images/first-hour-logo.png"
+				alt="First Hour logo" />
 			<span class="menuTitle">First Hour</span>
 		</a>
 	</div>

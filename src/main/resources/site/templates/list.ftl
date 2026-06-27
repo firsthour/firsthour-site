@@ -12,7 +12,7 @@
 			as post>
 	
 	<div class="listPost">
-		<a href="/${post.uri?remove_ending("/index.html")}">
+		<a href="/${post.uri?remove_ending("/index.html")}/">
 			<h2 class="postTitle">${post.title}</h2>
 		</a>
 		<#if !content.site?has_content || content.siteType?contains(",")>
@@ -20,11 +20,11 @@
 		</#if>
 		<p>${post.date?string("MMMM d, yyyy")} by
 			<#list post.author?split(",") as author>
-				<a href="/writer/${author?lower_case?replace(" ", "-")?replace(".", "")}">${author}</a><#sep>, </#sep>
+				<a href="/writer/${author?lower_case?replace(" ", "-")?replace(".", "")}/">${author}</a><#sep>, </#sep>
 			</#list>
 		</p>
 		<p>${post.teaser}</p>
-		<a href="/${post.uri?remove_ending("/index.html")}">Read more</a>
+		<a href="/${post.uri?remove_ending("/index.html")}/">Read more</a>
 	</div>
 	<#sep>
 		<hr />

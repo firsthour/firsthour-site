@@ -11,7 +11,7 @@
 
 <p class="byline">${content.date?string("MMMM d, yyyy")} by
 	<#list content.author?split(",") as author>
-		<a href="/writer/${author?lower_case?replace(" ", "-")?replace(".", "")}">${author}</a><#sep>, </#sep>
+		<a href="/writer/${author?lower_case?replace(" ", "-")?replace(".", "")}/">${author}</a><#sep>, </#sep>
 	</#list>
 </p>
 
@@ -22,7 +22,7 @@
 	<#if content.nextContent??>
 		<div class="readMoreNextContent">
 			Next:
-			<a href="/${content.nextContent.uri?remove_ending("/index.html")}">
+			<a href="/${content.nextContent.uri?remove_ending("/index.html")}/">
 				${content.nextContent.title}
 			</a>
 		</div>
@@ -31,7 +31,7 @@
 	<#if content.previousContent??>
 		<div class="readMorePreviousContent">
 			Previous:
-			<a href="/${content.previousContent.uri?remove_ending("/index.html")}">
+			<a href="/${content.previousContent.uri?remove_ending("/index.html")}/">
 				${content.previousContent.title}
 			</a>
 		</div>
