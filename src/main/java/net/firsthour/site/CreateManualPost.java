@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import net.firsthour.model.Type;
 
@@ -14,9 +16,9 @@ public class CreateManualPost {
 	public static void main(String[] args) throws IOException {
 		//update below
 		Type type = Type.FULL_REVIEW;
-		String title = "Mina the Hollower";
-		String screenshotDir = "mina-the-hollower";
-		String headerImage = "mina-the-hollower-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
+		String title = "Castlevania: Symphony of the Night on the Ayn Thor";
+		String screenshotDir = "castlevania-symphony-of-the-night";
+		String headerImage = "castlevania-symphony-of-the-night-ayn-thor-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
 		LocalDate date = LocalDate.now(); //LocalDate.of(2026, 2, 26);
 		//update above
 		
@@ -222,7 +224,15 @@ public class CreateManualPost {
 	}
 	
 	private static String convertImageToString(String image) {
-		return image.trim().replace("-", " ").substring(0, image.indexOf("."));
+		String name = image.trim();
+		int dot = name.lastIndexOf('.');
+		if(dot > 0) {
+			name = name.substring(0, dot);
+		}
+		
+		return Arrays.stream(name.split("-"))
+			.map(word -> Character.toUpperCase(word.charAt(0)) + word.substring(1))
+			.collect(Collectors.joining(" "));
 	}
 	
 	private static String deleteLinks(String teaser) {
