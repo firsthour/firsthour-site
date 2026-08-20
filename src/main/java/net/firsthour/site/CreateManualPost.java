@@ -16,19 +16,22 @@ public class CreateManualPost {
 	public static void main(String[] args) throws IOException {
 		//update below
 		Type type = Type.FULL_REVIEW;
-		String title = "Castlevania: Symphony of the Night on the Ayn Thor";
-		String screenshotDir = "castlevania-symphony-of-the-night";
-		String headerImage = "castlevania-symphony-of-the-night-ayn-thor-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
+		String title = "Esoteric Ebb";
+		String screenshotDir = "esoteric-ebb";
+		String headerImage = "esoteric-ebb-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
 		LocalDate date = LocalDate.now(); //LocalDate.of(2026, 2, 26);
+		String description = "";
+                            //         10        20        30        40        50        60        70        80        90        100       110       120       130       140       150       160
 		//update above
 		
-		create(type, title, screenshotDir, headerImage, date);
+		create(type, title, screenshotDir, headerImage, date, description);
 	}
 	
 	//include <BREAK> at teaser end
 	//images use <IMG name-of-image.png>
 	private static String text =
 """
+
 """;
 	
 	private static final String PARA = "</p>\n<p>";
@@ -38,7 +41,8 @@ public class CreateManualPost {
 			String title,
 			String screenshotDir,
 			String headerImage,
-			LocalDate date) throws IOException {
+			LocalDate date,
+			String description) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		
 		String[] parts = text.split("\\<BREAK\\>");
@@ -86,7 +90,7 @@ public class CreateManualPost {
 			.append("\n")
 			
 			.append("description=")
-			.append(stripTeaser(deleteLinks(teaser)))
+			.append(description)
 			.append("\n")
 			
 			.append("~~~~~~")
