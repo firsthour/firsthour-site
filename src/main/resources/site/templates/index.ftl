@@ -5,7 +5,7 @@
 <#list published_posts?filter(post -> post.status == "published") as post>
 	<div class="listPost">
 		<a href="/${post.uri?remove_ending("/index.html")}/">
-			<h2 class="postTitle">${post.title}</h2>
+			<h1 class="postTitle">${post.title}</h2>
 		</a>
 		<h3 class="siteType">${post.siteType}</h3>
 		<p>${post.date?string("MMMM dd, yyyy")} by

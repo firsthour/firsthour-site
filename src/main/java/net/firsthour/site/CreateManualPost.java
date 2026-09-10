@@ -15,13 +15,14 @@ public class CreateManualPost {
 	
 	public static void main(String[] args) throws IOException {
 		//update below
-		Type type = Type.FULL_REVIEW;
-		String title = "Esoteric Ebb";
-		String screenshotDir = "esoteric-ebb";
-		String headerImage = "esoteric-ebb-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
+		Type type = Type.FULL_REVIEW; // if GOTY edit list.ftl
+		String title = "Skies of Arcadia Legends";
+		String screenshotDir = "skies-of-arcadia-legends";
+		String headerImage = "skies-of-arcadia-legends-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
 		LocalDate date = LocalDate.now(); //LocalDate.of(2026, 2, 26);
-		String description = "";
+		String description = "Full review of the video game Skies of Arcadia Legends on the Gamecube with a focus on Vyse, Aika, and Fina's relationship on Dreamcast Day.";
                             //         10        20        30        40        50        60        70        80        90        100       110       120       130       140       150       160
+		                    //                                                                                                                                                     bksy
 		//update above
 		
 		create(type, title, screenshotDir, headerImage, date, description);
@@ -31,7 +32,6 @@ public class CreateManualPost {
 	//images use <IMG name-of-image.png>
 	private static String text =
 """
-
 """;
 	
 	private static final String PARA = "</p>\n<p>";

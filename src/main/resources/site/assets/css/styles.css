@@ -150,6 +150,7 @@ a:focus {
 	margin-bottom: 0;
 	margin-top: 0;
 	padding-top: 20px;
+	font-size: 2.3125em;
 }
 
 .page-header {
@@ -201,8 +202,4 @@ a:has(> img.summaryimage) {
 
 .centerinfobox {
 	text-align: center;
-}
-
-.byline {
-	margin-top: 10px;
 }
