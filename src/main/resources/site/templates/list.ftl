@@ -7,6 +7,7 @@
 <#if content.title == "Game of the Year">
 	<#assign goty_order = [
 		"goty/2025-game-of-the-year",
+		"goty/2024-game-of-the-year-satisfactory",
 		"goty/2016-game-of-the-year-stardew-valley-10th-anniversary",
 		"goty/my-favorite-games-of-2015",
 		"goty/2014-game-of-the-year",

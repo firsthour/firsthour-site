@@ -34,6 +34,7 @@
 		<meta name="image" content="${image}">
 		<meta property="og:image" content="${image}">
 		<meta name="twitter:image" content="${image}">
+		<meta name="twitter:card" content="summary_large_image">
 		
 		<meta property="og:type" content="article">
 		<meta property="article:published_time" content="${content.date???then(content.date?string("yyyy-MM-dd"), '')}">

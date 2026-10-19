@@ -8,7 +8,7 @@
 			<h1 class="postTitle">${post.title}</h2>
 		</a>
 		<h3 class="siteType">${post.siteType}</h3>
-		<p>${post.date?string("MMMM dd, yyyy")} by
+		<p>${post.date?string("MMMM d, yyyy")} by
 			<#list post.author?split(",") as author>
 				<a href="/writer/${author?lower_case?replace(" ", "-")?replace(".", "")}/">${author}</a><#sep>, </#sep>
 			</#list>
