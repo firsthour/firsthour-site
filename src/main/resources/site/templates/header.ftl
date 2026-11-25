@@ -27,6 +27,8 @@
 		<meta property="og:title" content="${title}">
 		<meta name="twitter:title" content="${title}">
 		
+		<meta property="og:site_name" content="First Hour">
+		
 		<meta name="description" content="${description}">
 		<meta property="og:description" content="${description}">
 		<meta name="twitter:description" content="${description}">
@@ -40,6 +42,8 @@
 		<meta property="article:published_time" content="${content.date???then(content.date?string("yyyy-MM-dd"), '')}">
 		
 		<meta property="og:url" content="${config.site_host}/${content.noExtensionUri???then(content.noExtensionUri, '')}">
+		
+		<link rel="canonical" href="${config.site_host}/${content.noExtensionUri???then(content.noExtensionUri, '')}">
 		
 		<link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/bootstrap.min.css" rel="stylesheet">
 		<link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.css" rel="stylesheet">

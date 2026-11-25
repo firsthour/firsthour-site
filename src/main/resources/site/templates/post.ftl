@@ -2,12 +2,12 @@
 
 <#include "menu.ftl">
 
-<#if (content.title)??>
+<#if (content.header?? && content.header?trim != "") || (content.title?? && content.title?trim != "")>
 	<div class="pageHeader">
-		<h1 class="postTitle">${content.title}</h1>
+		<h1 class="postTitle"><#if content.header?? && content.header?trim != "">${content.header}<#else>${content.title}</#if></h1>
 		<h3 class="siteType">${content.siteType}</h3>
 	</div>
-<#else></#if>
+</#if>
 
 <p class="byline">${content.date?string("MMMM d, yyyy")} by
 	<#list content.author?split(",") as author>

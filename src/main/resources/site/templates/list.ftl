@@ -57,7 +57,7 @@
 		
 		<div class="listPost">
 			<a href="/${post.uri?remove_ending("/index.html")}/">
-				<h2 class="postTitle">${post.title}</h2>
+				<h2 class="postTitle"><#if post.header?? && post.header?trim != "">${post.header}<#else>${post.title}</#if></h2>
 			</a>
 			<#if !content.site?has_content || content.siteType?contains(",")>
 				<h3 class="siteType">${post.siteType}</h3>

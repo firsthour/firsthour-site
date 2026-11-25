@@ -16,16 +16,18 @@ public class CreateManualPost {
 	public static void main(String[] args) throws IOException {
 		//update below
 		Type type = Type.FULL_REVIEW; // if GOTY edit list.ftl
-		String title = "Skies of Arcadia Legends";
-		String screenshotDir = "skies-of-arcadia-legends";
-		String headerImage = "skies-of-arcadia-legends-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
+		String title = "Heir of the Dog Review (PC)";
+		String header = "Heir of the Dog";
+		String slug = "heir-of-the-dog";
+		String screenshotDir = "heir-of-the-dog";
+		String headerImage = "heir-of-the-dog-header.jpg"; //bluesky likes 1.91 ratio (eg. 1000x523, 1200x629, 1920x1004 - 1.912)
 		LocalDate date = LocalDate.now(); //LocalDate.of(2026, 2, 26);
-		String description = "Full review of the video game Skies of Arcadia Legends on the Gamecube with a focus on Vyse, Aika, and Fina's relationship on Dreamcast Day.";
+		String description = "Full review of the new PC game Heir of the Dog, a point and click adventure from developer Tall Story Games.";
                             //         10        20        30        40        50        60        70        80        90        100       110       120       130       140       150       160
-		                    //                                                                                                                                                     bksy
+		                    //                                                                                                                                                     bsky
 		//update above
 		
-		create(type, title, screenshotDir, headerImage, date, description);
+		create(type, title, header, slug, screenshotDir, headerImage, date, description);
 	}
 	
 	//include <BREAK> at teaser end
@@ -39,6 +41,8 @@ public class CreateManualPost {
 	private static void create(
 			Type type,
 			String title,
+			String header,
+			String slug,
 			String screenshotDir,
 			String headerImage,
 			LocalDate date,
@@ -58,6 +62,10 @@ public class CreateManualPost {
 			.append(title)
 			.append("\n")
 			
+			.append("header=")
+			.append(header)
+			.append("\n")
+			
 			.append("date=")
 			.append(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
 			.append("\n")
@@ -70,7 +78,7 @@ public class CreateManualPost {
 			.append(
 				buildHtmlTeaser(
 					type,
-					title,
+					slug,
 					screenshotDir,
 					headerImage,
 					deleteLinks(teaser),
@@ -99,7 +107,7 @@ public class CreateManualPost {
 			.append(
 				buildHtmlTeaser(
 					type,
-					title,
+					slug,
 					screenshotDir,
 					headerImage,
 					teaser,
@@ -111,13 +119,13 @@ public class CreateManualPost {
 		createFile(
 			sb.toString(),
 			type,
-			title,
+			slug,
 			screenshotDir);
 	}
 	
 	private static String buildHtmlTeaser(
 			Type type,
-			String title,
+			String slug,
 			String screenshotDir,
 			String headerImage,
 			String teaser,
@@ -128,7 +136,7 @@ public class CreateManualPost {
 		teaser = reduceLineBreaks(teaser);
 		teaser = teaser.replace("\n", "</p><p>");
 		
-		String url = convertTitleToSlug(title) + "/";
+		String url = slug + "/";
 		
 		teaser = teaser.replace("<a href=”", "<a href=\"");
 		teaser = teaser.replace("<a href=“", "<a href=\"");
@@ -214,19 +222,6 @@ public class CreateManualPost {
 		return result.trim();
 	}
 	
-	private static String stripTeaser(String teaser) {
-		teaser = teaser.replace("\n", " ").replace("\r", "").trim();
-		
-		boolean foundDoubleSpace = false;
-		do {
-			int length = teaser.length();
-			teaser = teaser.trim().replace("  ", " ");
-			foundDoubleSpace = length != teaser.length();
-		} while(foundDoubleSpace);
-		
-		return teaser;
-	}
-	
 	private static String convertImageToString(String image) {
 		String name = image.trim();
 		int dot = name.lastIndexOf('.');
@@ -278,25 +273,11 @@ public class CreateManualPost {
 		return text;
 	}
 	
-	private static String convertTitleToSlug(String title) {
-		return title.toLowerCase()
-			.replaceFirst("^the\s", "")
-			.replace(" ", "-")
-			.replace("---", "-")
-			.replace(":", "")
-			.replace(",", "")
-			.replace("'", "")
-			.replace("\"", "")
-			.replace(".", "");
-	}
-	
-	private static void createFile(String output, Type type, String title, String screenshotDir) throws IOException {
+	private static void createFile(String output, Type type, String slug, String screenshotDir) throws IOException {
 		Path dir = Paths.get("src/main/resources/site/manual").toAbsolutePath().resolve(type.dir);
 		if(!dir.toFile().exists()) {
 			dir.toFile().mkdirs();
 		}
-		
-		String slug = convertTitleToSlug(title);
 		
 		//create slug in dir if it doesn't exist
 		//okay to reuse file
